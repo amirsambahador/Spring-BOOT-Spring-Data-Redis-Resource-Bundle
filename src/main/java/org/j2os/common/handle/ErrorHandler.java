@@ -32,7 +32,7 @@ public class ErrorHandler {
         log.error(exception.getClass().getName());
         return errorMap;
     }
-    public String getErrorMessageByErrorCode(String errorCode) {
+    private String getErrorMessageByErrorCode(String errorCode) {
         return messageSource.getMessage("ERROR".concat(errorCode), null, Locale.forLanguageTag(language));
     }
     private String getErrorCodeByException(Exception exception) {
