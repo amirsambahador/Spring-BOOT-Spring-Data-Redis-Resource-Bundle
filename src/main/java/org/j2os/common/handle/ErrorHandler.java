@@ -23,22 +23,23 @@ public class ErrorHandler {
     public ErrorHandler(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-    public Map<String, String> getError(Exception e) {
-        log.error(e.getMessage());
+
+    public Map<String, String> getError(Exception exception) {
         final Map<String, String> error = new HashMap<>();
-        if (e instanceof RecordNotExist) {
-            error.put("code", "1001");
-            error.put("message", messageSource.getMessage("ERROR1001", null, Locale.forLanguageTag(language)));
-        } else if (e instanceof ArithmeticException) {
-            error.put("code", "1002");
-            error.put("message", messageSource.getMessage("ERROR1002", null, Locale.forLanguageTag(language)));
-        } else if (e instanceof ClassNotFoundException) {
-            error.put("code", "1003");
-            error.put("message", messageSource.getMessage("ERROR1003", null, Locale.forLanguageTag(language)));
-        } else {
-            error.put("code", "2000");
-            error.put("message", messageSource.getMessage("ERROR2000", new Object[]{e.getMessage()}, Locale.forLanguageTag(language)));
-        }
+        error.put("code", getErrorCodeByException(exception));
+        error.put("message", messageSource.getMessage("ERROR".concat(getErrorCodeByException(exception)), null, Locale.forLanguageTag(language)));
+        log.error(exception.getClass().toString().concat(exception.getMessage()));
         return error;
+    }
+
+    private String getErrorCodeByException(Exception exception) {
+        if (exception instanceof RecordNotExist)
+            return "1001";
+        else if (exception instanceof ArithmeticException)
+            return "1002";
+        else if (exception instanceof ClassNotFoundException)
+            return "1003";
+        else
+            return "2000";
     }
 }

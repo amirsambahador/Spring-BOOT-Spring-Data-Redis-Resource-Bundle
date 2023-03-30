@@ -3,7 +3,6 @@ package org.j2os.api;
 import org.j2os.common.handle.ErrorHandler;
 import org.j2os.domain.Person;
 import org.j2os.service.PersonService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +22,7 @@ public class PersonAPI {
     private final PersonService personService;
     private final ErrorHandler errorHandler;
 
-    public PersonAPI(PersonService personService,ErrorHandler errorHandler) {
+    public PersonAPI(PersonService personService, ErrorHandler errorHandler) {
         this.personService = personService;
         this.errorHandler = errorHandler;
     }
