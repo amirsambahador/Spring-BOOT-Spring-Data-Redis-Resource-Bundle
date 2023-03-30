@@ -23,15 +23,18 @@ public class ErrorHandler {
     public ErrorHandler(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-
     public Map<String, String> getError(Exception exception) {
-        final Map<String, String> error = new HashMap<>();
-        error.put("code", getErrorCodeByException(exception));
-        error.put("message", messageSource.getMessage("ERROR".concat(getErrorCodeByException(exception)), null, Locale.forLanguageTag(language)));
-        log.error(exception.getClass().toString().concat(exception.getMessage()));
-        return error;
+        String errorCode = getErrorCodeByException(exception);
+        String errorMessage = getErrorMessageByErrorCode(errorCode);
+        final Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("code", errorCode);
+        errorMap.put("message", errorMessage);
+        log.error(exception.getClass().getName());
+        return errorMap;
     }
-
+    public String getErrorMessageByErrorCode(String errorCode) {
+        return messageSource.getMessage("ERROR".concat(errorCode), null, Locale.forLanguageTag(language));
+    }
     private String getErrorCodeByException(Exception exception) {
         if (exception instanceof RecordNotExist)
             return "1001";
