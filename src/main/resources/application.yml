@@ -1,0 +1,6 @@
+org:
+  j2os:
+    language: en
+    redis:
+      host: localhost
+      port: 6379
