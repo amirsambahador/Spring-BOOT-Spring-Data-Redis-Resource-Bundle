@@ -18,7 +18,7 @@ import java.util.Map;
 public class ErrorHandler {
     @Value("${org.j2os.language}")
     private String language;
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     public ErrorHandler(MessageSource messageSource) {
         this.messageSource = messageSource;

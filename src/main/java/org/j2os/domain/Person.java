@@ -20,7 +20,6 @@ import org.springframework.data.redis.core.RedisHash;
 public class Person {
     @Id
     private String personId;
-
     private String name;
     private String family;
 }
